@@ -1,6 +1,6 @@
-plugins {
-    id 'com.android.library'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven' //this way we can find the android-maven in jcenter
+group='com.github.dk' //this is your github name
 
 android {
     compileSdkVersion 30
