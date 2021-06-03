@@ -1,0 +1,3 @@
+include ':AsyncLib'
+include ':app'
+rootProject.name = "AsyncTool"
