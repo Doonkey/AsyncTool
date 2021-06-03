@@ -1,6 +1,4 @@
-package com.dk.asynclib.task;
-
-import com.dk.asynclib.ThreadMode;
+package com.dk.asynclib;
 
 public abstract class SubThreadTask extends AbsTask {
 

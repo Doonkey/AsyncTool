@@ -1,10 +1,8 @@
-package com.dk.asynclib.task;
-
-import com.dk.asynclib.ThreadMode;
+package com.dk.asynclib;
 
 import java.util.concurrent.CountDownLatch;
 
-public abstract class AbsGroupTask extends AbsTask{
+abstract class AbsGroupTask extends AbsTask{
 
     public AbsGroupTask(String taskName) {
         super(taskName);

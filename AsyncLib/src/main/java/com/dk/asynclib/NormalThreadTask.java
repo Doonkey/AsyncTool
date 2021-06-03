@@ -1,7 +1,5 @@
-package com.dk.asynclib.task;
+package com.dk.asynclib;
 
-
-import com.dk.asynclib.ThreadMode;
 
 public abstract class NormalThreadTask extends AbsTask {
 

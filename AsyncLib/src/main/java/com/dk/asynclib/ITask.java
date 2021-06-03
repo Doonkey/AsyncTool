@@ -1,6 +1,4 @@
-package com.dk.asynclib.task;
-
-import com.dk.asynclib.TaskCallback;
+package com.dk.asynclib;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

@@ -3,7 +3,7 @@ package com.dk.asynctoollib;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.dk.asynclib.task.SubThreadTask;
+import com.dk.asynclib.SubThreadTask;
 
 import java.util.concurrent.CountDownLatch;
 

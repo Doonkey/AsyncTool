@@ -1,7 +1,4 @@
-package com.dk.asynclib.task;
-
-import com.dk.asynclib.TaskCallback;
-import com.dk.asynclib.ThreadMode;
+package com.dk.asynclib;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,6 +1,4 @@
-package com.dk.asynclib.task;
-
-import com.dk.asynclib.TaskCallback;
+package com.dk.asynclib;
 
 public class GroupTask extends AbsGroupTask{
 

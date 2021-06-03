@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.dk.asynclib.AbsTask;
 import com.dk.asynclib.TaskCallback;
-import com.dk.asynclib.task.AbsTask;
-import com.dk.asynclib.task.GroupTask;
+import com.dk.asynclib.GroupTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         AbsTask absTask7 = new AsyncTask7("task7");
         AbsTask absTask8 = new AsyncTask8("task8");
         AbsTask absTask9 = new AsyncTask9("task9");
-        group1.addTask(absTask1, absTask2, absTask3, group2);
+        group1.addTask(group2, absTask1, absTask2, absTask3);
         group2.addTask(group3, absTask4, absTask5, absTask6);
         group3.addTask(absTask7, absTask8, absTask9);
         group1.start(new TaskCallback() {
