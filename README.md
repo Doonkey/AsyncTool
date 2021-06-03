@@ -24,7 +24,12 @@ dependencies {
 #### 使用
 
 
-#### 1.task继承SubThreadTask或者NormalThreadTask
+#### 1.task继承SubThreadTask或者NormalThreadTask，任务完成后需要手动调用
+ ```Java
+ if (countDownLatch != null){
+       countDownLatch.countDown();
+     }
+ ```
 
  ```Java
  public class AsyncTask1 extends SubThreadTask {
