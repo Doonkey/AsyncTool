@@ -39,7 +39,7 @@ public class AsyncTool {
      * @param gFirstRun true 设置下一组任务在本组之前执行，默认false
      * @param task 当前组内任务
      */
-    public AsyncTool addTaskGroup(TaskSubCallback<String> callback, boolean gFirstRun, AbsTask... task){
+    public AsyncTool addTaskGroup(TaskCallback callback, boolean gFirstRun, AbsTask... task){
         GroupTask groupSubTask = new GroupTask("groupTask" + subTaskIndex, callback);
         groupSubTask.addTask(task);
         groupTaskArrayList.add(new GroupRunSort(gFirstRun, groupSubTask));
