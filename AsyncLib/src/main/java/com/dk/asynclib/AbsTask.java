@@ -9,37 +9,40 @@ import java.util.concurrent.Executors;
 public abstract class AbsTask implements ITask{
 
     private ArrayList<AbsTask> mTasks;
-    private CountDownLatch mCountDownLatch;
-    private ExecutorService mExecutorService;
+    private final ExecutorService mExecutorService;
     private final String mTaskName;
+    private CountDownLatch mCountDownLatch;
     private TaskCallback mCallback;
     private AbsTask mParentTask;
 
-    public abstract void startTask(CountDownLatch countDownLatch);
-    public abstract ThreadMode runThread();
+    public void startTask(CountDownLatch countDownLatch){
+        if (countDownLatch != null){
+            countDownLatch.countDown();
+        }
+    }
+
+    public ThreadMode runThread(){
+        return ThreadMode.normalThread;
+    }
 
     public AbsTask(String taskName) {
         this.mTaskName = taskName;
+        mExecutorService = Executors.newFixedThreadPool(2);
     }
 
     @Override
     public void addTask(AbsTask... task) {
-        mTasks = new ArrayList<>();
-        mCountDownLatch = new CountDownLatch(task.length);
-        mExecutorService = Executors.newFixedThreadPool(2);
+        if (mTasks == null){
+            mTasks = new ArrayList<>();
+        }
         Collections.addAll(mTasks, task);
+        mCountDownLatch = new CountDownLatch(mTasks.size());
     }
 
     @Override
     public void start(TaskCallback callback){
         this.mCallback = callback;
-        CountDownLatch countDownLatch = getCountDownLatch();
-        getExecutorService().execute(new Runnable() {
-            @Override
-            public void run() {
-                start(countDownLatch);
-            }
-        });
+        getExecutorService().execute(() -> start(getCountDownLatch()));
     }
 
     @Override
@@ -48,8 +51,8 @@ public abstract class AbsTask implements ITask{
     }
 
     @Override
-    public AbsTask[] getTaskList() {
-        return mTasks == null ? new AbsTask[]{}: (AbsTask[]) mTasks.toArray();
+    public ArrayList<AbsTask> getTaskList() {
+        return hasTaskList() ? mTasks: new ArrayList<>();
     }
 
     @Override
@@ -65,11 +68,17 @@ public abstract class AbsTask implements ITask{
     @Override
     public void onFinish() {
         if (getParent() == null) {
+            if (getGroupCallback() != null){
+                getGroupCallback().onFinish(getTaskName());
+            }
             if (mCallback != null){
-                mCallback.onFinish();
+                mCallback.onFinish(getTaskName());
             }
         }else {
             getParent().countDown();
+            if (getGroupCallback() != null){
+                getGroupCallback().onFinish(getTaskName());
+            }
         }
     }
 
@@ -82,8 +91,17 @@ public abstract class AbsTask implements ITask{
         this.mParentTask = groupTask;
     }
 
-    private AbsTask getParent(){
+    protected AbsTask getParent(){
         return mParentTask;
+    }
+
+    private TaskCallback mGroupCallback;
+    protected void setGroupCallback(TaskCallback mTaskCallback){
+        this.mGroupCallback = mTaskCallback;
+    }
+
+    private TaskCallback getGroupCallback(){
+        return mGroupCallback;
     }
 
     private void countDown() {
@@ -123,20 +141,6 @@ public abstract class AbsTask implements ITask{
 
     ExecutorService createThread() {
         return Executors.newSingleThreadExecutor();
-    }
-
-    @Override
-    public String toString() {
-        if (!hasTaskList()){
-            return getTaskName() + "{}";
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getTaskName()).append("{");
-        for (ITask task : mTasks) {
-            stringBuilder.append(task.toString());
-        }
-        stringBuilder.append("}");
-        return stringBuilder.toString();
     }
 
 }

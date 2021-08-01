@@ -1,7 +1,7 @@
 package com.dk.asynclib;
 
 enum ThreadMode {
-    SubThread,//任务完成后无需调用finish()
+    SubThread,
 
-    normalThread//任务完成后需要手动调用finish()
+    normalThread
 }

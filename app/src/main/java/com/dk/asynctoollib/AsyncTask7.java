@@ -1,24 +1,23 @@
 package com.dk.asynctoollib;
 
 import android.os.SystemClock;
-import android.util.Log;
 
-import com.dk.asynclib.SubThreadTask;
+import com.dk.asynclib.AsyncTaskAbs;
+import com.dk.asynclib.TaskSubCallback;
 
 import java.util.concurrent.CountDownLatch;
 
-public class AsyncTask7 extends SubThreadTask {
+public class AsyncTask7 extends AsyncTaskAbs<String> {
 
-    public AsyncTask7(String taskName) {
-        super(taskName);
+    public AsyncTask7(String taskName, TaskSubCallback<String> callback) {
+        super(taskName, callback);
     }
 
     @Override
     public void startTask(CountDownLatch countDownLatch) {
-        SystemClock.sleep(1000);
-        Log.e("TAG", "AsyncTask=>"+getTaskName());
-        if (countDownLatch != null){
-            countDownLatch.countDown();
-        }
+        SystemClock.sleep(2000);
+        String response = "AsyncTask=>"+getTaskName();
+        super.startTask(countDownLatch, response);
     }
+
 }

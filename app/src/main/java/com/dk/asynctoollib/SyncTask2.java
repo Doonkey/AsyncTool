@@ -2,15 +2,16 @@ package com.dk.asynctoollib;
 
 import android.os.SystemClock;
 
-import com.dk.asynclib.AsyncTaskAbs;
+import com.dk.asynclib.AbsTask;
+import com.dk.asynclib.SyncTaskAbs;
 import com.dk.asynclib.TaskSubCallback;
 
 import java.util.concurrent.CountDownLatch;
 
-public class AsyncTask9 extends AsyncTaskAbs<String> {
+public class SyncTask2 extends SyncTaskAbs<String> {
 
-    public AsyncTask9(String taskName, TaskSubCallback<String> callback) {
-        super(taskName, callback);
+    public SyncTask2(String taskName, AbsTask dispatchTask, TaskSubCallback<String> callback) {
+        super(taskName, dispatchTask, callback);
     }
 
     @Override
