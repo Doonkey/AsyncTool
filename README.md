@@ -1,4 +1,4 @@
-# 异步组件
+# 异步组件[![](https://jitpack.io/v/Doonkey/AsyncTool.svg)](https://jitpack.io/#Doonkey/AsyncTool)
 
 ### 组件说明
 
@@ -9,29 +9,27 @@
 Step 1. 添加JitPack仓库到根目录build.gradle文件
 
 allprojects {
-
-repositories {
-
-...
-
-maven { url '[https://jitpack.io](https://jitpack.io)' }
-
-}
-
-}
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 
 Step 2. 在module添加依赖
 
 dependencies {
-
-implementation 'com.github.Doonkey:AsyncTool:1.0'
-
-}
+	        implementation 'com.github.Doonkey:AsyncTool:Tag'
+	}
 
 #### 使用
 
 
-#### 1.task继承SubThreadTask或者NormalThreadTask
+#### 1.task继承SubThreadTask或者NormalThreadTask，任务完成后需要手动调用
+ ```Java
+ if (countDownLatch != null){
+       countDownLatch.countDown();
+     }
+ ```
 
  ```Java
  public class AsyncTask1 extends SubThreadTask {
